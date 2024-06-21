@@ -23,7 +23,7 @@ const HeaderComponent = () => {
       localStorage.clear();
       // window.location.reload();
       setUserData(false);
-      navigate('/auth/login');
+      navigate('/auth/signin');
 
     }
     else {

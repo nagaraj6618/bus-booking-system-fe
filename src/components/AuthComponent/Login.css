@@ -1,0 +1,24 @@
+.loginregister-container{
+   /* background-color: red; */
+   height: 93vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: -1;
+}
+.loginregisterform-container{
+   background-color: #DC635B;
+   flex-grow: 200px;
+  padding:5% 20%;
+  /* width: 600px; */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.17);
+}
+.loginregisterform-container div{
+   padding: 5px;
+}
+.eye-option{
+   display: inline;
+}
