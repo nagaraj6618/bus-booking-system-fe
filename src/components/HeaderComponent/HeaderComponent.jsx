@@ -3,12 +3,12 @@ import { Link,useNavigate } from 'react-router-dom'
 import { MdOutlineMenuOpen } from 'react-icons/md'
 import { RiCloseLine } from 'react-icons/ri'
 import './HeaderComponent.css'
-
+import userImage from '../../assets/images/logo512.png'
 const HeaderComponent = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(false);
-
+  const [userName,setUserName] = useState("");
 
   const mobileNavbarHandler = () => {
     setIsOpen(!isOpen)
@@ -27,10 +27,16 @@ const HeaderComponent = () => {
 
     }
     else {
-      setUserData(true)
+      setUserData(true);
+      setUserName(localStorage.getItem('userName'))
     }
 
-  }, [0])
+  }, [0]);
+  const logOutHandler = () => {
+    sessionStorage.clear();
+    localStorage.clear();
+    window.location.href = "/";
+  }
   return (
    <div className='navbar-container'>
    <div className='mobile-menu-icon'>
@@ -41,7 +47,7 @@ const HeaderComponent = () => {
      {isOpen && <RiCloseLine onClick={mobileNavbarHandler} className='close-navbar' />}
      {
        
-         <div key="h" className='navlink'>
+         <div className='navlink'>
 
            <Link to="/home" className='link nav-link' >Home</Link>
          </div>
@@ -55,6 +61,19 @@ const HeaderComponent = () => {
        <div>
          <Link to='/auth/signup' className='link nav-link' >SignUp</Link>
        </div>
+     </div>}
+     {userData 
+     && 
+     <div className='nav-account-container'>
+       <div>
+        {/* <img src={userImage} className='user-logo'></img> */}
+        <span>{userName}</span>
+       </div>
+       <div>
+        {/* <img src={userImage} className='user-logo'></img> */}
+        <span className='hover:cursor-pointer' onClick={logOutHandler}>LogOut</span>
+       </div>
+       
      </div>}
 
    </div>

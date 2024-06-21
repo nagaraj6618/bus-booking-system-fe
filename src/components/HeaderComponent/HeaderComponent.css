@@ -1,73 +1,92 @@
-.navbar-container{
-   /* background-color: #DC635B; */
+.navbar-container {
    height: 50px;
    color: #DC635B;
-}
-.navlink-container{
+   background-color: rgba(255, 255, 255, 0.8);
+   backdrop-filter: blur(10px);
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   position: relative;
+   z-index: 10;
+ }
+ 
+ .navlink-container {
    display: flex;
    align-items: center;
    justify-content: space-around;
    transition: 0.3s;
-}
-.nav-account-container{
+ }
+ 
+ .nav-account-container {
    display: flex;
-}
-.nav-account-container div{
+   flex-direction: column;
+ }
+ 
+ .nav-account-container div {
    margin-right: 20px;
    display: block;
-}
-.navlink-mobile-container{
+ }
+ 
+ .navlink-mobile-container {
    display: flex;
    flex-direction: column;
    position: absolute;
-   background-color: #DC635B;
-   left:-1px;
-   top:0px;
-   width: 150px;
+   background-color: rgba(220, 99, 91, 0.9);
+   left: 0;
+   top: 0;
+   width: 45%;
    height: 100vh;
    color: white;
    justify-content: flex-start;
    padding: 20px;
    transition: 0.3s;
    z-index: 1;
-   animation: slideIn 0.5s forwards; 
-   border-bottom-right-radius: 10px;
-}
-
-@keyframes slideIn {
+   animation: slideIn 0.5s forwards;
+   backdrop-filter: blur(10px);
+ }
+ 
+ @keyframes slideIn {
    from {
-       left: -150px; 
+     left: -100%;
    }
    to {
-       left: 0px; 
+     left: 0;
    }
-}
-
-.mobile-menu-icon{
+ }
+ 
+ .mobile-menu-icon {
    position: absolute;
    font-size: 22px;
-   top: 8px;
+   top: 14px;
    left: 10px;
    display: none;
-}
-.close-navbar{
+ }
+ 
+ .close-navbar {
    color: white;
    font-size: 22px;
-}
-.navlink{
-   
+   position: absolute;
+   top: 14px;
+   right: 10px;
+ }
+ 
+ .navlink {
    margin-left: 20px;
    padding: 10px;
-}
-@media only screen and (max-width:600px){
-   .navlink-container{
-      display: none;
+ }
+ 
+ @media only screen and (max-width: 600px) {
+   .navlink-container {
+     display: none;
    }
-   .navlink-mobile-container{
-      display: inline;
-   
+   .navlink-mobile-container {
+     display: inline;
    }
-   .mobile-menu-icon{
-      display: inline;
+   .mobile-menu-icon {
+     display: inline;
    }
-}
+ }
+ 
+ .user-logo {
+   height: 30px;
+   margin-right: 10px;
+ }
+ 
