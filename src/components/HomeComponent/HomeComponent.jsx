@@ -13,12 +13,17 @@ const HomeComponent = () => {
     fromLocation:"",
     toLocation:""
   });
+  const[totalBusRoute,setTotalBusRoute] = useState([]);
+  const [filteredBusRouteFromLocation,setFilteredBusRouteFromLocation] = useState([]);
+  const [filteredBusRouteToLocation,setFilteredBusRouteToLocation] = useState([]);
   const [message,setMessage] = useState("");
 
-  async function fetchBusData(from,to){
+  async function fetchBusData(){
     try{
       const response = await axios.get(`${BE_URL}/bus`);
-      console.log(response.data.data);
+      console.log(response.data);
+      console.log(response.data.totalRoute);
+      setTotalBusRoute(response.data.totalRoute);
     }
     
     catch(error){
@@ -27,15 +32,38 @@ const HomeComponent = () => {
 
   }
   useEffect( () => {
-    fetchBusData("chennai","end1");
+    fetchBusData();
   },[])
 
   const handleLocation = (e) => {
-    // console.log(e.target.name);
-    setLocation((prev) => ({...prev , [e.target.name]:e.target.value}));
+    
+    const {name,value} = e.target;
+    setLocation((prev) => ({...prev , [name]:value}));
+
+    if(name === "fromLocation"){
+      setFilteredBusRouteFromLocation(
+        totalBusRoute.filter(data=>data.toLowerCase().includes(value.toLowerCase())
+      ))
+    }
+    if(name === "toLocation"){
+      setFilteredBusRouteToLocation(totalBusRoute.filter(
+        data=>data.toLowerCase().includes(value.toLowerCase())
+      ))
+    }
     setResponse(null);
-    // console.log(e.target.value);
+    
   }
+  const handleSelect = (name,value) => {
+    setLocation((prev) => ({...prev,[name]:value}));
+    if(name === "fromLocation"){
+      setFilteredBusRouteFromLocation([]);
+    }
+    else if(name === "toLocation"){
+      setFilteredBusRouteToLocation([]);
+    }
+  }
+
+
   const searchHandler = async() => {
     // console.log(location);
     
@@ -85,7 +113,21 @@ const HomeComponent = () => {
             placeholder="Enter from station"
             name='fromLocation'
             onChange={handleLocation}
+            value = {location.fromLocation}
           />
+          {filteredBusRouteFromLocation.length > 0 && (
+            <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
+              {filteredBusRouteFromLocation.map((route, index) => (
+                <p 
+                  key={index} 
+                  className='p-2 hover:bg-gray-200 cursor-pointer' 
+                  onClick={() => handleSelect('fromLocation', route)}
+                >
+                  {route}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
           <label
@@ -101,9 +143,23 @@ const HomeComponent = () => {
             placeholder="Enter to station"
             name="toLocation"
             onChange={handleLocation}
+            value={location.toLocation}
           />
+          {filteredBusRouteToLocation.length > 0 && (
+            <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
+              {filteredBusRouteToLocation.map((route, index) => (
+                <p 
+                  key={index} 
+                  className='p-2 hover:bg-gray-200 cursor-pointer' 
+                  onClick={() => handleSelect('toLocation', route)}
+                >
+                  {route}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
-        <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+        {/* <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
           <label
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="date"
@@ -115,7 +171,7 @@ const HomeComponent = () => {
             id="date"
             type="date"
           />
-        </div>
+        </div> */}
         <div className="w-full md:w-1/4 px-3 flex items-center">
           <button
             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded w-full"
@@ -125,29 +181,11 @@ const HomeComponent = () => {
           </button>
         </div>
       </div>
-      {/* <div className="flex flex-wrap -mx-3">
-        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <button
-            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
-          >
-            Today
-          </button>
-        </div>
-        <div className="w-full md:w-1/2 px-3">
-          <button
-            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full"
-          >
-            Tomorrow
-          </button>
-        </div>
-      </div> */}
+      
       { responseData && !responseData.status &&
         <ErroreMessageComponent error={responseData.message}/>
       }
-      {/* { 
-        busData.length>0 &&
-        <BusCompoent busDetails = {busData}/>
-      } */}
+      
       <BusCompoent busDetails = {busData} message={message}/>
     </div>
 
