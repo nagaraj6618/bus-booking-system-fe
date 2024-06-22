@@ -3,7 +3,7 @@ import { Link,useNavigate } from 'react-router-dom'
 import { MdOutlineMenuOpen } from 'react-icons/md'
 import { RiCloseLine } from 'react-icons/ri'
 import './HeaderComponent.css'
-// import userImage from '../../assets/images/logo512.png'
+import userImage from '../../assets/images/logo512.png'
 const HeaderComponent = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +39,7 @@ const HeaderComponent = () => {
   }
   return (
    <div className='navbar-container'>
+    
    <div className='mobile-menu-icon'>
      <MdOutlineMenuOpen onClick={mobileNavbarHandler} />
    </div>
@@ -54,11 +55,11 @@ const HeaderComponent = () => {
        
      }
 
-     {!userData && <div className='nav-account-container'>
-       <div >
+     {!userData && <div className='nav-account-container flex'>
+       <div className='inline'>
          <Link to='/auth/signin' className='link nav-link ' >Login</Link>
        </div>
-       <div >
+       <div className='inline'>
          <Link to='/auth/signup' className='link nav-link ' >SignUp</Link>
        </div>
      </div>}
