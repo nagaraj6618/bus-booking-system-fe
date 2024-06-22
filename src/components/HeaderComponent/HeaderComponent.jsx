@@ -9,7 +9,7 @@ const HeaderComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(false);
   const [userName,setUserName] = useState("");
-
+  const [role,setRole] = useState("");
   const mobileNavbarHandler = () => {
     setIsOpen(!isOpen)
   }
@@ -28,7 +28,8 @@ const HeaderComponent = () => {
     }
     else {
       setUserData(true);
-      setUserName(localStorage.getItem('userName'))
+      setUserName(localStorage.getItem('userName'));
+      setRole(localStorage.getItem("role"));
     }
 
   }, [0]);
@@ -66,10 +67,16 @@ const HeaderComponent = () => {
      {userData 
      && 
      <div className='nav-account-container'>
+      
        <div>
+        
         {/* <img src={userImage} className='user-logo'></img> */}
         <span>{userName}</span>
        </div>
+       {role ==="admin" &&
+        <div>
+        <Link className='hover:cursor-pointer ' to={'/admin'}>{role.toUpperCase()}</Link>
+      </div>}
        <div>
         {/* <img src={userImage} className='user-logo'></img> */}
         <span className='hover:cursor-pointer' onClick={logOutHandler}>LogOut</span>
