@@ -212,6 +212,7 @@ const BusCompoent = ({busDetails,from,to}) => {
                <p className='text-sm text-gray-600'>Total Time: {data.totalTime} hrs</p>
              </div>
              <div className='mt-5 text-right'>
+              <span className='mr-2'>All Day available</span>
                <Link className='bg-red-600 text-white p-2 rounded' to={`/bus/${data._id}?from=${from}&to=${to}`}>View Details</Link>
              </div>
            </div>

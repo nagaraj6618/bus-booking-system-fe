@@ -73,6 +73,9 @@ const HeaderComponent = () => {
         {/* <img src={userImage} className='user-logo'></img> */}
         <span>{userName}</span>
        </div>
+       <div>
+          <Link className='hover:cursor-pointer' to='/book'>Tickets</Link>
+       </div>
        {role ==="admin" &&
         <div>
         <Link className='hover:cursor-pointer ' to={'/admin'}>{role.toUpperCase()}</Link>
@@ -81,6 +84,7 @@ const HeaderComponent = () => {
         {/* <img src={userImage} className='user-logo'></img> */}
         <span className='hover:cursor-pointer' onClick={logOutHandler}>LogOut</span>
        </div>
+       
        
      </div>}
 
