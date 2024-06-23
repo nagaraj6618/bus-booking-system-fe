@@ -101,7 +101,7 @@ const HomeComponent = () => {
       setResponse({
         success:false,
         message:error.message
-        
+
       })
     }
   }
@@ -197,8 +197,9 @@ const HomeComponent = () => {
         <ErroreMessageComponent error={responseData.message}/>
       }
       
-      <BusCompoent busDetails = {busData} message={message}/>
+      <BusCompoent busDetails = {busData} message={message} from={location.fromLocation} to={location.toLocation}/>
     </div>
+
 
   );
 

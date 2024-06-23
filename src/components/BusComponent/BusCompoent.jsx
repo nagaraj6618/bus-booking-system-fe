@@ -7,7 +7,7 @@ import { FcRating } from "react-icons/fc";
 import { HiOutlineCurrencyRupee } from "react-icons/hi";
 import { IoIosTimer } from "react-icons/io";
 
-const BusCompoent = ({busDetails}) => {
+const BusCompoent = ({busDetails,from,to}) => {
    // console.log("Bus component:",busDetails);
    const busDataDetails = [
       {
@@ -212,7 +212,7 @@ const BusCompoent = ({busDetails}) => {
                <p className='text-sm text-gray-600'>Total Time: {data.totalTime} hrs</p>
              </div>
              <div className='mt-5 text-right'>
-               <Link className='bg-red-600 text-white p-2 rounded' to={`/bus/${data._id}`}>View Details</Link>
+               <Link className='bg-red-600 text-white p-2 rounded' to={`/bus/${data._id}?from=${from}&to=${to}`}>View Details</Link>
              </div>
            </div>
          ))}

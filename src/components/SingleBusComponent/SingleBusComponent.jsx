@@ -6,6 +6,7 @@ import { BE_URL } from '../../info';
 import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import { PiSeatbeltFill } from "react-icons/pi";
 import ErroreMessageComponent from '../ErrorMessage/ErroreMessageComponent';
+import BusBookComponent from '../BusBookComponent/BusBookComponent';
 
 const SingleBusComponent = () => {
   const LseatA = ["AL1", "AL2", "AL3", "AL4", "AL5", "AL6"];
@@ -56,10 +57,30 @@ const SingleBusComponent = () => {
     console.log(selectedSeats)
   }
 
+  const bookHandler = () => {
+    if(selectedSeats.length>0 && selectDate){
+      setBookStatus(true);
+    }
+    else{
+      setResponse((prev)=>
+        ({
+          ...prev,
+          success: false,
+          message: "Select Seats and Dates.",
+        })
+      );
+    }
+
+  }
   return (
     <div className="p-4">
        { responseData && !responseData.status &&
         <ErroreMessageComponent error={responseData.message}/>
+      }
+      {/* <BusBookComponent selectedSeat = {selectedSeats || []} busDetails = {busData} selectedDate = {selectDate}/> */}
+      {
+        bookStatus &&
+        <BusBookComponent selectedSeat = {selectedSeats || []} busDetails = {busData} selectedDate = {selectDate}/>
       }
       {
         !bookStatus &&
@@ -72,6 +93,8 @@ const SingleBusComponent = () => {
               onChange={(e) => setSelectDate(e.target.value)}
             />
           </div>
+
+        
           {!selectDate && (
             <div className="select-seat-message text-red-500 font-bold mb-4">
               Please select a date to choose seats.
@@ -79,6 +102,13 @@ const SingleBusComponent = () => {
           )}
           {
             selectDate &&
+            selectedSeats.length>0 &&
+            <div className="w-full">
+              <button onClick={bookHandler} className='bg-red-500 p-2 rounded-lg px-6 ml-3 text-white w-full'>Book</button>
+            </div>
+          }
+          {
+            selectDate && 
             <div className="p-4">
               <h1 className="text-2xl mb-4">Bus Seat Layout</h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-5 border shadow-lg backdrop-filter backdrop-blur-lg rounded-lg">
