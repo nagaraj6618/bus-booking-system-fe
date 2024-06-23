@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { BE_URL } from '../../info';
 import ErroreMessageComponent from '../ErrorMessage/ErroreMessageComponent';
+import SuccessMessageComponent from '../SuccessMessage/SuccessMessageComponent';
 
 const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
    const { id } = useParams();
@@ -56,7 +57,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
    const bookSubmitHandler = async(event) => {
       event.preventDefault()
       console.log(bookingDetails);
-
+      
       try {
          const token = sessionStorage.getItem('token');
          const response = await axios.post(`${BE_URL}/book`,bookingDetails,{
@@ -65,6 +66,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
             }
          })
          console.log(response.data);
+         setResponse(response.data);
       }
       catch (error) {
          console.log(error);
@@ -72,14 +74,20 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
             setResponse((prev) => ({
                ...prev,
                message:error.response.data.message,
-               status:false
+               success:false
             }))
          }
+         setTimeout(()=>{
+            setResponse(null);
+         },[3000]);
       }
    }
    return (
       <div className="container mx-auto p-4">
-         { responseData && !responseData.status &&
+         {responseData && responseData.success && (
+        <SuccessMessageComponent success={responseData.success} message={responseData.message} />
+      )}
+         { responseData && !responseData.success &&
             <ErroreMessageComponent error={responseData.message}/>
          }
          <h1 className="text-2xl font-bold mb-4">Bus Booking Details</h1>
@@ -94,6 +102,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
                         value={passenger.name}
                         onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
                         className="border border-gray-300 p-2 rounded mr-2"
+                        required
                      />
                      <input
                         type="number"
@@ -101,11 +110,13 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
                         value={passenger.age}
                         onChange={(e) => handlePassengerChange(index, 'age', e.target.value)}
                         className="border border-gray-300 p-2 rounded mr-2"
+                        required
                      />
                      <select
                         value={passenger.gender}
                         onChange={(e) => handlePassengerChange(index, 'gender', e.target.value)}
                         className="border border-gray-300 p-2 rounded"
+                        required
                      >
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>

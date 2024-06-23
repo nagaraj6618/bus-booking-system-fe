@@ -70,6 +70,9 @@ const SingleBusComponent = () => {
         })
       );
     }
+    setTimeout(()=>{
+      setResponse(null);
+   },[3000]);
 
   }
   return (
