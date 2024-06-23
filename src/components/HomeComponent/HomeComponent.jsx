@@ -67,19 +67,25 @@ const HomeComponent = () => {
   const searchHandler = async() => {
     // console.log(location);
     
-    if(!location.fromLocation || !location.toLocation ){
-      setResponse((prev)=>({
-        ...prev,
-        success: false,
-        message: "Provide from and destiny location",
-      }));
-     
-    }
+    
     try{
-      const response = await axios.get(`${BE_URL}/bus?fromLocation=${location.fromLocation.toLowerCase()}&toLocation=${location.toLocation.toLowerCase()}`)
+      if(!location.fromLocation || !location.toLocation ){
+        setResponse((prev)=>({
+          ...prev,
+          success: false,
+          message: "Provide from and destiny location",
+        }));
+        setBusData([]);
+        setMessage("");
+       
+      }
+      else{
+        const response = await axios.get(`${BE_URL}/bus?fromLocation=${location.fromLocation.toLowerCase()}&toLocation=${location.toLocation.toLowerCase()}`)
       console.log(response.data);
       setBusData(response.data.data);
       setMessage(response.data.message);
+      }
+      
       
     }
     catch(error){
@@ -115,7 +121,7 @@ const HomeComponent = () => {
             onChange={handleLocation}
             value = {location.fromLocation}
           />
-          {filteredBusRouteFromLocation.length > 0 && (
+          {filteredBusRouteFromLocation.length > 0 && location.fromLocation.length >0 && (
             <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
               {filteredBusRouteFromLocation.map((route, index) => (
                 <p 
@@ -145,7 +151,7 @@ const HomeComponent = () => {
             onChange={handleLocation}
             value={location.toLocation}
           />
-          {filteredBusRouteToLocation.length > 0 && (
+          {filteredBusRouteToLocation.length > 0 && location.toLocation.length > 0 &&(
             <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
               {filteredBusRouteToLocation.map((route, index) => (
                 <p 
