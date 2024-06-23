@@ -78,7 +78,7 @@ const HeaderComponent = () => {
        </div>
        {role ==="admin" &&
         <div>
-        <Link className='hover:cursor-pointer ' to={'/admin'}>{role.toUpperCase()}</Link>
+        <Link className='hover:cursor-pointer ' to={'/admin'}>Admin</Link>
       </div>}
        <div>
         {/* <img src={userImage} className='user-logo'></img> */}

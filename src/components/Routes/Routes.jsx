@@ -7,6 +7,7 @@ import NotFoundComponent from '../NotFoundComponent/NotFoundComponent'
 import SingleBusComponent from '../SingleBusComponent/SingleBusComponent'
 import AdminComponent from '../Admin/AdminComponent'
 import BookedDisplayComponent from '../BookedDisplayComponent/BookedDisplayComponent'
+import BusRegisterComponent from '../Admin/BusRegisterComponent/BusRegisterComponent'
 const RoutesComponent = () => {
   return (
     <Routes>
@@ -14,8 +15,10 @@ const RoutesComponent = () => {
       <Route path ='/auth/signin' element = {<Login/>} />
       <Route path = "/auth/signup" element = {<Register/>} />
       <Route path = "/admin" element={<AdminComponent/>}/>
+      <Route path = "/bus/register" element = {<BusRegisterComponent/>} />
       <Route path='/bus/:id' element={<SingleBusComponent/>}/>
       <Route path='/book' element={<BookedDisplayComponent/>}/>
+      <Route path='/admin' element={<AdminComponent/>} />
       <Route path ="*" element={<NotFoundComponent/>}/>
     </Routes>
   )
