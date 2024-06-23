@@ -62,12 +62,12 @@ const SingleBusComponent = () => {
       setBookStatus(true);
     }
     else{
-      setResponse((prev)=>
-        ({
+      setResponse(
+      {
           ...prev,
           success: false,
           message: "Select Seats and Dates.",
-        })
+        }
       );
     }
     setTimeout(()=>{
@@ -119,7 +119,9 @@ const SingleBusComponent = () => {
                 {/* Lower Section */}
                 <div>
                   <h2 className="text-xl mb-2">Lower</h2>
+                  
                   <div className="bg-red-500 p-2 rounded-lg mb-4">
+                  <p className='text-lg text-white text-end'>LA</p>
                     {LseatA.map((data, index) => (
                       <div key={index} className="relative inline-block m-2 group">
                         {bookedSeat.includes(data) ? (
@@ -143,6 +145,7 @@ const SingleBusComponent = () => {
                     ))}
                   </div>
                   <div className="bg-red-500 p-2 rounded-lg">
+                  <p className='text-lg text-white text-end'>LB</p>
                     {LseatB.map((data, index) => (
                       <div key={index} className="relative inline-block m-2 group">
                         {bookedSeat.includes(data) ? (
@@ -170,6 +173,7 @@ const SingleBusComponent = () => {
                 <div>
                   <h2 className="text-xl mb-2">Upper</h2>
                   <div className="bg-blue-500 p-2 rounded-lg mb-4">
+                  <p className='text-lg text-white text-end'>UA</p>
                     {UseatA.map((data, index) => (
                       <div key={index} className="relative inline-block m-2 group">
                         {bookedSeat.includes(data) ? (
@@ -192,6 +196,7 @@ const SingleBusComponent = () => {
                     ))}
                   </div>
                   <div className="bg-blue-500 p-2 rounded-lg">
+                  <p className='text-lg text-white text-end'>UB</p>
                     {UseatB.map((data, index) => (
                       <div key={index} className="relative inline-block m-2 group">
                         {bookedSeat.includes(data) ? (

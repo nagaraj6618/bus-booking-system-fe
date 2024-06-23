@@ -37,7 +37,7 @@ const Login = () => {
       localStorage.setItem('name', response.data.data.name);
       localStorage.setItem('userName', response.data.data.userName);
       localStorage.setItem('role', response.data.data.role);
-
+      setLoading(false);
       setTimeout(() => {
         window.location.href = '/';
       }, 1000);

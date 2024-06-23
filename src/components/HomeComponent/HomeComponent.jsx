@@ -70,11 +70,11 @@ const HomeComponent = () => {
 
     try {
       if (!location.fromLocation || !location.toLocation) {
-        setResponse((prev) => ({
-          ...prev,
+        setResponse({
+          
           success: false,
           message: "Provide from and destiny location",
-        }));
+        });
         setBusData([]);
         setMessage("");
 

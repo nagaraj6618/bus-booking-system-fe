@@ -71,19 +71,18 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
       catch (error) {
          console.log(error);
          if (error.response) {
-            setResponse((prev) => ({
+            setResponse({
                ...prev,
                message: error.response.data.message,
                success: false
-            }))
+            })
          }
          else {
             setResponse(
-               () => ({
-                  ...prev,
+               {
                   success: false,
                   message: "Ticket Booking Failed.."
-               })
+               }
             )
          }
          setTimeout(() => {
