@@ -32,7 +32,7 @@ const Login = () => {
       setResponse(response.data);
       sessionStorage.setItem('token', response.data.token);
       sessionStorage.setItem('timeIn', Date.now());
-      sessionStorage.setItem('timeOut', Date.now() + 10 * 60 * 1000);
+      sessionStorage.setItem('timeOut', Date.now() + 50 * 60 * 1000);
 
       localStorage.setItem('name', response.data.data.name);
       localStorage.setItem('userName', response.data.data.userName);

@@ -8,101 +8,108 @@ import ErroreMessageComponent from "../ErrorMessage/ErroreMessageComponent"
 const HomeComponent = () => {
 
   const [responseData, setResponse] = useState(null);
-  const [busData ,setBusData] = useState([]);
-  const [location,setLocation] = useState({
-    fromLocation:"",
-    toLocation:""
+  const [busData, setBusData] = useState([]);
+  const [location, setLocation] = useState({
+    fromLocation: "",
+    toLocation: ""
   });
-  const[totalBusRoute,setTotalBusRoute] = useState([]);
-  const [filteredBusRouteFromLocation,setFilteredBusRouteFromLocation] = useState([]);
-  const [filteredBusRouteToLocation,setFilteredBusRouteToLocation] = useState([]);
-  const [message,setMessage] = useState("");
+  const [totalBusRoute, setTotalBusRoute] = useState([]);
+  const [filteredBusRouteFromLocation, setFilteredBusRouteFromLocation] = useState([]);
+  const [filteredBusRouteToLocation, setFilteredBusRouteToLocation] = useState([]);
+  const [message, setMessage] = useState("");
 
-  async function fetchBusData(){
-    try{
+  async function fetchBusData() {
+    try {
       const response = await axios.get(`${BE_URL}/bus`);
       console.log(response.data);
       console.log(response.data.totalRoute);
       setTotalBusRoute(response.data.totalRoute);
     }
-    
-    catch(error){
+
+    catch (error) {
       console.log(error);
     }
 
   }
-  useEffect( () => {
+  useEffect(() => {
     fetchBusData();
-  },[])
+  }, [])
 
   const handleLocation = (e) => {
-    
-    const {name,value} = e.target;
-    setLocation((prev) => ({...prev , [name]:value}));
 
-    if(name === "fromLocation"){
+    const { name, value } = e.target;
+    setLocation((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "fromLocation") {
       setFilteredBusRouteFromLocation(
-        totalBusRoute.filter(data=>data.toLowerCase().includes(value.toLowerCase())
-      ))
+        totalBusRoute.filter(data => data.toLowerCase().includes(value.toLowerCase())
+        ))
     }
-    if(name === "toLocation"){
+    if (name === "toLocation") {
       setFilteredBusRouteToLocation(totalBusRoute.filter(
-        data=>data.toLowerCase().includes(value.toLowerCase())
+        data => data.toLowerCase().includes(value.toLowerCase())
       ))
     }
     setResponse(null);
-    
+
   }
-  const handleSelect = (name,value) => {
-    setLocation((prev) => ({...prev,[name]:value}));
-    if(name === "fromLocation"){
+  const handleSelect = (name, value) => {
+    setLocation((prev) => ({ ...prev, [name]: value }));
+    if (name === "fromLocation") {
       setFilteredBusRouteFromLocation([]);
     }
-    else if(name === "toLocation"){
+    else if (name === "toLocation") {
       setFilteredBusRouteToLocation([]);
     }
   }
 
 
-  const searchHandler = async() => {
+  const searchHandler = async () => {
     // console.log(location);
-    
-    
-    try{
-      if(!location.fromLocation || !location.toLocation ){
-        setResponse((prev)=>({
+
+
+    try {
+      if (!location.fromLocation || !location.toLocation) {
+        setResponse((prev) => ({
           ...prev,
           success: false,
           message: "Provide from and destiny location",
         }));
         setBusData([]);
         setMessage("");
-       
+
       }
-      else{
+      else {
         const response = await axios.get(`${BE_URL}/bus?fromLocation=${location.fromLocation.toLowerCase()}&toLocation=${location.toLocation.toLowerCase()}`)
-      console.log(response.data);
-      setBusData(response.data.data);
-      setMessage(response.data.message);
+        console.log(response.data);
+        setBusData(response.data.data);
+        setMessage(response.data.message);
       }
-      
-      
+
+
     }
-    catch(error){
+    catch (error) {
       console.log(error);
-      if(error.response && error.response.status === 404){
+      if (error.response && error.response.status === 404) {
         setResponse(
           {
-            success:false,
-            message:error.response.data.message,
+            success: false,
+            message: error.response.data.message,
           }
         )
       }
-      setResponse({
-        success:false,
-        message:error.message
+      else {
+        setResponse({
+          success: false,
+          message: error.message
 
-      })
+        })
+      }
+      setTimeout(() => {
+        setResponse(null);
+      }, [3000]);
+
+
     }
   }
 
@@ -115,7 +122,7 @@ const HomeComponent = () => {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="from-station"
           >
-            From Station<BsBusFront className="ml-2 text-red-600 text-xl inline mb-1"/>
+            From Station<BsBusFront className="ml-2 text-red-600 text-xl inline mb-1" />
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -124,14 +131,14 @@ const HomeComponent = () => {
             placeholder="Enter from station"
             name='fromLocation'
             onChange={handleLocation}
-            value = {location.fromLocation}
+            value={location.fromLocation}
           />
-          {filteredBusRouteFromLocation.length > 0 && location.fromLocation.length >0 && (
+          {filteredBusRouteFromLocation.length > 0 && location.fromLocation.length > 0 && (
             <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
               {filteredBusRouteFromLocation.map((route, index) => (
-                <p 
-                  key={index} 
-                  className='p-2 hover:bg-gray-200 cursor-pointer' 
+                <p
+                  key={index}
+                  className='p-2 hover:bg-gray-200 cursor-pointer'
                   onClick={() => handleSelect('fromLocation', route)}
                 >
                   {route}
@@ -145,7 +152,7 @@ const HomeComponent = () => {
             className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
             htmlFor="to-station"
           >
-            To Station<IoLocation className="ml-2 text-red-600 text-xl inline mb-1 "/>
+            To Station<IoLocation className="ml-2 text-red-600 text-xl inline mb-1 " />
           </label>
           <input
             className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -156,12 +163,12 @@ const HomeComponent = () => {
             onChange={handleLocation}
             value={location.toLocation}
           />
-          {filteredBusRouteToLocation.length > 0 && location.toLocation.length > 0 &&(
+          {filteredBusRouteToLocation.length > 0 && location.toLocation.length > 0 && (
             <div className='absolute bg-white border border-gray-200 rounded max-h-40 overflow-y-auto w-full mt-1'>
               {filteredBusRouteToLocation.map((route, index) => (
-                <p 
-                  key={index} 
-                  className='p-2 hover:bg-gray-200 cursor-pointer' 
+                <p
+                  key={index}
+                  className='p-2 hover:bg-gray-200 cursor-pointer'
                   onClick={() => handleSelect('toLocation', route)}
                 >
                   {route}
@@ -192,12 +199,16 @@ const HomeComponent = () => {
           </button>
         </div>
       </div>
-      
-      { responseData && !responseData.status &&
-        <ErroreMessageComponent error={responseData.message}/>
+
+      {responseData && !responseData.success &&
+
+        <ErroreMessageComponent error={responseData.message} />
+
+
+
       }
-      
-      <BusCompoent busDetails = {busData} message={message} from={location.fromLocation} to={location.toLocation}/>
+
+      <BusCompoent busDetails={busData} message={message} from={location.fromLocation} to={location.toLocation} />
     </div>
 
 
