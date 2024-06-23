@@ -72,7 +72,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
          console.log(error);
          if (error.response) {
             setResponse({
-               ...prev,
+              
                message: error.response.data.message,
                success: false
             })

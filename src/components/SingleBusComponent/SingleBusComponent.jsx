@@ -64,7 +64,7 @@ const SingleBusComponent = () => {
     else{
       setResponse(
       {
-          ...prev,
+          
           success: false,
           message: "Select Seats and Dates.",
         }
