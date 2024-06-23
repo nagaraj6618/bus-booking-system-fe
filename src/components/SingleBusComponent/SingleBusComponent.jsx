@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { BE_URL } from '../../info';
 import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
 import { PiSeatbeltFill } from "react-icons/pi";
+import ErroreMessageComponent from '../ErrorMessage/ErroreMessageComponent';
 
 const SingleBusComponent = () => {
   const LseatA = ["AL1", "AL2", "AL3", "AL4", "AL5", "AL6"];
@@ -35,6 +36,10 @@ const SingleBusComponent = () => {
           message: error.response.data.message,
         });
       }
+      setResponse({
+        success: false,
+        message: error.message,
+      });
     }
   };
 
@@ -53,6 +58,9 @@ const SingleBusComponent = () => {
 
   return (
     <div className="p-4">
+       { responseData && !responseData.status &&
+        <ErroreMessageComponent error={responseData.message}/>
+      }
       {
         !bookStatus &&
         <div>

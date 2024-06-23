@@ -89,8 +89,8 @@ const HomeComponent = () => {
       
     }
     catch(error){
-      console.log(error.response);
-      if(error.response.status === 404){
+      console.log(error);
+      if(error.response && error.response.status === 404){
         setResponse(
           {
             success:false,
@@ -98,6 +98,11 @@ const HomeComponent = () => {
           }
         )
       }
+      setResponse({
+        success:false,
+        message:error.message
+        
+      })
     }
   }
 
