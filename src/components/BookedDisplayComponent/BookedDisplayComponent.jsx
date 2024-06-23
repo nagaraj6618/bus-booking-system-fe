@@ -27,9 +27,9 @@ const BookedDisplayComponent = () => {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      if (error.response && !error.response.status) {
-        // Handle error appropriately
-      }
+      // if (error.response && !error.response.status) {
+      //   // Handle error appropriately
+      // }
       console.log(error);
     }
   }

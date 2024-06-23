@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { BE_URL } from '../../../info';
 import LoadingComponent from '../../LoadingComponent/LoadingComponent';
-
+import ErroreMessageComponent from '../../ErrorMessage/ErroreMessageComponent'
+import SuccessMessageComponent from '../../SuccessMessage/SuccessMessageComponent';
 const BusRegisterComponent = () => {
    const [loading,setLoading] = useState(false);
    const [responseData, setResponse] = useState(null);
@@ -69,15 +70,31 @@ const BusRegisterComponent = () => {
          });
          setLoading(false);
          console.log(response.data);
+         setResponse({
+            success:true,
+            message:"Registered Successfully"
+         })
       } catch (error) {
          setLoading(false);
          console.log(error);
          if(error.response){
+            console.log("heloo")
             setResponse({
                success:false,
                message:error.response.data.message
             })
          }
+         else{
+            setResponse({
+               success:false,
+               message:error.message||"...Not Successfull..",
+            });
+         }
+         
+         setTimeout(()=>{
+            setResponse(null);
+         },3000
+         )
       }
    };
 
@@ -86,6 +103,13 @@ const BusRegisterComponent = () => {
          {
             loading &&
             <LoadingComponent/>
+         }
+         {
+            responseData &&  !responseData.success &&
+            <ErroreMessageComponent error={responseData.message}/>
+         }
+         {responseData && responseData.success &&
+            <SuccessMessageComponent success={responseData.success} message={responseData.message} />
          }
          <h1 className="text-2xl font-bold mb-4">Bus Registration</h1>
          <form onSubmit={handleSubmit}>
