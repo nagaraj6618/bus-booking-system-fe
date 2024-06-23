@@ -110,7 +110,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
                         placeholder="Name"
                         value={passenger.name}
                         onChange={(e) => handlePassengerChange(index, 'name', e.target.value)}
-                        className="border border-gray-300 p-2 rounded mr-2"
+                        className="border border-gray-300 p-2 rounded mr-2 mb-2"
                         required
                      />
                      <input
@@ -118,13 +118,13 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
                         placeholder="Age"
                         value={passenger.age}
                         onChange={(e) => handlePassengerChange(index, 'age', e.target.value)}
-                        className="border border-gray-300 p-2 rounded mr-2"
+                        className="border border-gray-300 p-2 rounded mr-2  mb-2"
                         required
                      />
                      <select
                         value={passenger.gender}
                         onChange={(e) => handlePassengerChange(index, 'gender', e.target.value)}
-                        className="border border-gray-300 p-2 rounded"
+                        className="border border-gray-300 p-2 rounded  mb-2"
                         required
                      >
                         <option value="">Select Gender</option>
