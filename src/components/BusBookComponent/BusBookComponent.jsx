@@ -54,15 +54,15 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
          },
       },
    };
-   const bookSubmitHandler = async(event) => {
+   const bookSubmitHandler = async (event) => {
       event.preventDefault()
       console.log(bookingDetails);
-      
+
       try {
          const token = sessionStorage.getItem('token');
-         const response = await axios.post(`${BE_URL}/book`,bookingDetails,{
-            headers:{
-               Authorization:`Bearer ${token}`
+         const response = await axios.post(`${BE_URL}/book`, bookingDetails, {
+            headers: {
+               Authorization: `Bearer ${token}`
             }
          })
          console.log(response.data);
@@ -70,25 +70,34 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
       }
       catch (error) {
          console.log(error);
-         if(error.response){
+         if (error.response) {
             setResponse((prev) => ({
                ...prev,
-               message:error.response.data.message,
-               success:false
+               message: error.response.data.message,
+               success: false
             }))
          }
-         setTimeout(()=>{
+         else {
+            setResponse(
+               () => ({
+                  ...prev,
+                  success: false,
+                  message: "Ticket Booking Failed.."
+               })
+            )
+         }
+         setTimeout(() => {
             setResponse(null);
-         },[3000]);
+         }, [3000]);
       }
    }
    return (
       <div className="container mx-auto p-4">
          {responseData && responseData.success && (
-        <SuccessMessageComponent success={responseData.success} message={responseData.message} />
-      )}
-         { responseData && !responseData.success &&
-            <ErroreMessageComponent error={responseData.message}/>
+            <SuccessMessageComponent success={responseData.success} message={responseData.message} />
+         )}
+         {responseData && !responseData.success &&
+            <ErroreMessageComponent error={responseData.message} />
          }
          <h1 className="text-2xl font-bold mb-4">Bus Booking Details</h1>
          <form onSubmit={bookSubmitHandler} >
