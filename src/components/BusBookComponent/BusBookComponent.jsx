@@ -1,11 +1,13 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { BE_URL } from '../../info';
 import ErroreMessageComponent from '../ErrorMessage/ErroreMessageComponent';
 import SuccessMessageComponent from '../SuccessMessage/SuccessMessageComponent';
+import LoadingComponent from '../LoadingComponent/LoadingComponent';
 
 const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
+   const navigate = useNavigate();
    const { id } = useParams();
    const location = useLocation();
    const queryParams = new URLSearchParams(location.search);
@@ -16,6 +18,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
    const initializePassengers = (seatCount) => {
       return Array.from({ length: seatCount }, () => ({ name: '', age: '', gender: '' }));
    };
+   const[loading,setLoading] = useState(false);
    const [responseData, setResponse] = useState(null);
    const [passengerList, setPassengerList] = useState(initializePassengers(selectedSeat.length));
 
@@ -57,7 +60,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
    const bookSubmitHandler = async (event) => {
       event.preventDefault()
       console.log(bookingDetails);
-
+      setLoading(true);
       try {
          const token = sessionStorage.getItem('token');
          const response = await axios.post(`${BE_URL}/book`, bookingDetails, {
@@ -67,6 +70,10 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
          })
          console.log(response.data);
          setResponse(response.data);
+         setLoading(false);
+         setTimeout(()=>{
+            navigate('/book');
+         },1500);
       }
       catch (error) {
          console.log(error);
@@ -85,6 +92,7 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
                }
             )
          }
+         setLoading(false);
          setTimeout(() => {
             setResponse(null);
          }, [3000]);
@@ -92,6 +100,9 @@ const BusBookComponent = ({ selectedSeat, busDetails, selectedDate }) => {
    }
    return (
       <div className="container mx-auto p-4">
+         {
+            loading && <LoadingComponent/>
+         }
          {responseData && responseData.success && (
             <SuccessMessageComponent success={responseData.success} message={responseData.message} />
          )}
