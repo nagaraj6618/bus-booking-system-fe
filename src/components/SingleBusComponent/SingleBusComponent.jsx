@@ -200,122 +200,157 @@ const SingleBusComponent = () => {
       fetchBusDataById();
     }
   }, [selectDate]);
-  const seatSelectHandler = (e) => {
-    setSelectedSeats((prev)=>[...prev,e]);
-    console.log(e);
+  const seatSelectHandler = (seat) => {
+    setSelectedSeats((prev) =>
+      prev.includes(seat) ? prev.filter((s) => s !== seat) : [...prev, seat]
+    );
+    console.log(seat);
     console.log(selectedSeats)
   }
 
   return (
-    <div>
-      <div>
-        <label>Select Date</label>
+    <div className="bus-component p-4">
+      <div className="date-selector mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2">Select Date</label>
         <input 
-          type='date'
+          type="date"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           onChange={(e) => setSelectDate(e.target.value)}
         />
       </div>
-      
-      <div className="p-4">
-        <h1 className="text-2xl mb-4">Bus Seat Layout</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-          {/* Lower Section */}
-          <div>
-            <h2 className="text-xl mb-2">Lower</h2>
-            <div className="bg-red-500 p-2 rounded-lg mb-4">
-              {LseatA.map((data, index) => (
-                <div key={index} className="relative inline-block m-2 group">
-                  {bookedSeat.includes(data) ? (
-                    <PiSeatbeltFill
-                      className="text-white cursor-not-allowed transition duration-300"
-                      size={24}
-                    />
-                  ) : (
-                    <MdOutlineAirlineSeatReclineExtra
-                      className="text-white hover:text-yellow-500 transition duration-300 cursor-pointer"
-                      size={24}
-                      
-                      onClick={()=>seatSelectHandler(data)}
-                    />
-                  )}
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {data}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="bg-red-500 p-2 rounded-lg">
-              {LseatB.map((data, index) => (
-                <div key={index} className="relative inline-block m-2 group">
-                  {bookedSeat.includes(data) ? (
-                    <PiSeatbeltFill
-                      className="text-white cursor-not-allowed transition duration-300"
-                      size={24}
-                    />
-                  ) : (
-                    <MdOutlineAirlineSeatReclineExtra
-                      className="text-white hover:text-yellow-500 transition duration-300 cursor-pointer"
-                      size={24}
-                      onClick={()=>seatSelectHandler(data)}
-                    />
-                  )}
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {data}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Upper Section */}
-          <div>
-            <h2 className="text-xl mb-2">Upper</h2>
-            <div className="bg-blue-500 p-2 rounded-lg mb-4">
-              {UseatA.map((data, index) => (
-                <div key={index} className="relative inline-block m-2 group">
-                  {bookedSeat.includes(data) ? (
-                    <PiSeatbeltFill
-                      className="text-white cursor-not-allowed transition duration-300"
-                      size={24}
-                    />
-                  ) : (
-                    <MdOutlineAirlineSeatReclineExtra
-                      className="text-white hover:text-yellow-500 transition duration-300 cursor-pointer"
-                      size={24}
-                      onClick={()=>seatSelectHandler(data)}
-                    />
-                  )}
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {data}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <div className="bg-blue-500 p-2 rounded-lg">
-              {UseatB.map((data, index) => (
-                <div key={index} className="relative inline-block m-2 group">
-                  {bookedSeat.includes(data) ? (
-                    <PiSeatbeltFill
-                      className="text-white cursor-not-allowed transition duration-300"
-                      size={24}
-                    />
-                  ) : (
-                    <MdOutlineAirlineSeatReclineExtra
-                      className="text-white hover:text-yellow-500 transition duration-300 cursor-pointer"
-                      size={24}
-                      onClick={()=>seatSelectHandler(data)}
-                    />
-                  )}
-                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {data}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
+      {!selectDate && (
+        <div className="select-seat-message text-red-500 font-bold mb-4">
+          Please select a date to choose seats.
         </div>
+      )}
+      {
+        selectDate &&
+        <div className="p-4">
+          <h1 className="text-2xl mb-4">Bus Seat Layout</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-5 border shadow-lg backdrop-filter backdrop-blur-lg rounded-lg">
+            
+            {/* Lower Section */}
+            <div>
+              <h2 className="text-xl mb-2">Lower</h2>
+              <div className="bg-red-500 p-2 rounded-lg mb-4">
+                {LseatA.map((data, index) => (
+                  <div key={index} className="relative inline-block m-2 group">
+                    {bookedSeat.includes(data) ? (
+                      <PiSeatbeltFill
+                        className="text-white cursor-not-allowed transition duration-300"
+                        size={24}
+                      />
+                    ) : (
+                      <MdOutlineAirlineSeatReclineExtra
+                        className={`text-white hover:text-yellow-500 transition duration-300 cursor-pointer 
+                          ${selectedSeats.includes(data)?'text-yellow-500':''}`}
+                        size={24}
+                        
+                        onClick={()=>seatSelectHandler(data)}
+                      />
+                    )}
+                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {data}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-red-500 p-2 rounded-lg">
+                {LseatB.map((data, index) => (
+                  <div key={index} className="relative inline-block m-2 group">
+                    {bookedSeat.includes(data) ? (
+                      <PiSeatbeltFill
+                        className="text-white cursor-not-allowed transition duration-300"
+                        size={24}
+                      />
+                    ) : (
+                      <MdOutlineAirlineSeatReclineExtra
+                        className={`text-white hover:text-yellow-500 transition duration-300 cursor-pointer
+                          ${selectedSeats.includes(data)?'text-yellow-500':''}`}
+                        size={24}
+                        onClick={()=>seatSelectHandler(data)}
+                      />
+                    )}
+                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {data}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Upper Section */}
+            <div>
+              <h2 className="text-xl mb-2">Upper</h2>
+              <div className="bg-blue-500 p-2 rounded-lg mb-4">
+                {UseatA.map((data, index) => (
+                  <div key={index} className="relative inline-block m-2 group">
+                    {bookedSeat.includes(data) ? (
+                      <PiSeatbeltFill
+                        className="text-white cursor-not-allowed transition duration-300"
+                        size={24}
+                      />
+                    ) : (
+                      <MdOutlineAirlineSeatReclineExtra
+                        className={`text-white hover:text-yellow-500 transition duration-300 cursor-pointer
+                          ${selectedSeats.includes(data)?'text-yellow-500':''}`}
+                        size={24}
+                        onClick={()=>seatSelectHandler(data)}
+                      />
+                    )}
+                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {data}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-blue-500 p-2 rounded-lg">
+                {UseatB.map((data, index) => (
+                  <div key={index} className="relative inline-block m-2 group">
+                    {bookedSeat.includes(data) ? (
+                      <PiSeatbeltFill
+                        className="text-white cursor-not-allowed transition duration-300"
+                        size={24}
+                      />
+                    ) : (
+                      <MdOutlineAirlineSeatReclineExtra
+                        className={`text-white hover:text-yellow-500 transition duration-300 cursor-pointer
+                          ${selectedSeats.includes(data)?'text-yellow-500':''}`}
+                        size={24}
+                        onClick={()=>seatSelectHandler(data)}
+                      />
+                    )}
+                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {data}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        }
+        
+         <div className="selected-seats mt-4">
+        {selectedSeats.length > 0 && (
+          <div className='rounded p-2 text-center border shadow-lg backdrop-filter backdrop-blur-lg'>
+            <p className='text-xl text-white  bg-green-600 mb-2 w-full rounded p-2 text-center shadow-lg backdrop-filter backdrop-blur-lg'
+            >
+              User Selected Seat
+            </p>
+              {
+                selectedSeats.map((data, index) => (
+                  <div key={index} className="selected-seat-item text-gray-700 font-bold text-lg mb-1">
+      
+                    <p>{data}</p>
+                  </div>
+                ))
+              }
+          </div>
+          
+          
+        )}
       </div>
     </div>
   );
