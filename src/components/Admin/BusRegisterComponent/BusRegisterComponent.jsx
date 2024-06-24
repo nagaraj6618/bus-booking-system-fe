@@ -93,9 +93,15 @@ const BusRegisterComponent = () => {
          
          setTimeout(()=>{
             setResponse(null);
+
          },3000
          )
       }
+      setTimeout(()=>{
+         setResponse(null);
+         
+      },3000
+      )
    };
 
    return (

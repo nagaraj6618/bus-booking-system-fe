@@ -80,7 +80,7 @@ const HomeComponent = () => {
 
       }
       else {
-        const response = await axios.get(`${BE_URL}/bus?fromLocation=${location.fromLocation.toLowerCase()}&toLocation=${location.toLocation.toLowerCase()}`)
+        const response = await axios.get(`${BE_URL}/bus?fromLocation=${location.fromLocation}&toLocation=${location.toLocation}`)
         console.log(response.data);
         setBusData(response.data.data);
         setMessage(response.data.message);
