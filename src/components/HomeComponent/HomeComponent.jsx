@@ -5,6 +5,7 @@ import BusCompoent from '../BusComponent/BusCompoent';
 import axios from 'axios';
 import { BE_URL } from '../../info';
 import ErroreMessageComponent from "../ErrorMessage/ErroreMessageComponent"
+import { TbExchange } from "react-icons/tb";
 const HomeComponent = () => {
 
   const [responseData, setResponse] = useState(null);
@@ -62,10 +63,18 @@ const HomeComponent = () => {
       setFilteredBusRouteToLocation([]);
     }
   }
-
+  const swapHandler = () => {
+    if(location.fromLocation || location.toLocation){
+      let newVar = location.fromLocation;
+      setLocation({
+        fromLocation:location.toLocation,
+        toLocation:newVar,
+      })
+    }
+  }
 
   const searchHandler = async () => {
-    // console.log(location);
+    console.log(location);
 
 
     try {
@@ -146,6 +155,9 @@ const HomeComponent = () => {
               ))}
             </div>
           )}
+        </div>
+        <div >
+          <p onClick={swapHandler} className='text-lg text-red-500  w-full cursor-pointer sm:mb-4'><TbExchange className=''/></p>
         </div>
         <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
           <label
