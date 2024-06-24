@@ -1,10 +1,63 @@
-# Getting Started with Create React App
+# Bus Ticket Booking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+Welcome to the Bus Ticket Booking System, a full-stack application developed using the MERN stack (MongoDB, Express.js, React.js, and Node.js). This system allows users to book bus tickets online, ensuring a seamless and efficient ticket booking experience.
 
-In the project directory, you can run:
+## Features
+
+### User Authentication
+
+- **Role-based Authentication**: Secure login for Admin and User roles.
+- **Token Authentication**: Ensures secure and stateless communication between client and server.
+
+### Booking Functionality
+
+- **Search Suggestion**: Auto-suggest feature for selecting 'From' and 'To' locations.
+- **Date Validation**: Past dates cannot be booked to ensure only future travel is possible.
+- **Bus Registration Constraints**: A bus cannot be registered at the same time or if it overlaps with an existing schedule.
+- **Dynamic Pricing**: Bus ticket prices are reduced based on the 'From' and 'To' locations with a decrease in fare cost per route.
+
+### Roles and Capabilities
+
+#### Admin
+
+- **Login**: Secure access to the admin dashboard.
+- **Register Bus**: Add new buses to the system.
+- **Update Bus**: Modify existing bus details.
+- **Delete Bus**: Remove buses from the system.
+- **View Booked Details**: Access all booking and passenger information.
+
+#### User
+
+- **Signup**: Register to create a new user account.
+- **Login**: Secure access to the user dashboard.
+- **View Bus**: Browse available buses.
+- **Book Ticket**: Select buses and book tickets.
+- **Seat Blocking**: Selected seats are temporarily blocked to prevent double booking.
+- **Booking History**: View past bookings and ticket details.
+
+## Technology Stack
+
+- **Frontend**: React.js
+- **Backend**: Node.js with Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT (JSON Web Tokens)
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+- MongoDB
+
+### Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd bus-ticket-booking-system
+
 
 ### `npm start`
 
@@ -14,57 +67,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
