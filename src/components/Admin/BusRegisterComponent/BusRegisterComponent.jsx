@@ -4,6 +4,7 @@ import { BE_URL } from '../../../info';
 import LoadingComponent from '../../LoadingComponent/LoadingComponent';
 import ErroreMessageComponent from '../../ErrorMessage/ErroreMessageComponent'
 import SuccessMessageComponent from '../../SuccessMessage/SuccessMessageComponent';
+import { TiDeleteOutline } from "react-icons/ti";
 const BusRegisterComponent = () => {
    const [loading,setLoading] = useState(false);
    const [responseData, setResponse] = useState(null);
@@ -42,7 +43,14 @@ const BusRegisterComponent = () => {
          busRoute: [...prevState.busRoute, '']
       }));
    };
-
+   const deleteBusRoute = (index) => {
+      const updateBusRoute = [...busDetails.busRoute];
+      updateBusRoute.splice(index,1);
+      setBusDetails(prevState => ({
+         ...prevState,
+         busRoute: updateBusRoute
+      }));
+   };
    const handleBusTypeChange = (e) => {
       const busType = e.target.value.split(",");
       setBusDetails(prevState => ({
@@ -216,6 +224,10 @@ const BusRegisterComponent = () => {
                         className="mt-1 p-2 w-full border rounded"
                         
                      />
+                     <button 
+                        onClick={()=>deleteBusRoute(index)}
+                         className="bg-red-500 text-white px-4 py-2 ml-2 rounded"
+                        ><TiDeleteOutline /></button>
                   </div>
                ))}
                <button
